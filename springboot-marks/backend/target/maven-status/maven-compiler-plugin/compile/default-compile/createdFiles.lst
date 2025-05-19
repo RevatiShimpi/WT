@@ -1,0 +1,9 @@
+com\vit\resultapp\repository\EseRepository.class
+com\vit\resultapp\model\Mse.class
+com\vit\resultapp\CalculatorApplication.class
+com\vit\resultapp\repository\MseRepository.class
+com\vit\resultapp\controller\ResultController.class
+com\vit\resultapp\dto\ResultDto.class
+com\vit\resultapp\model\Ese.class
+com\vit\resultapp\model\Student.class
+com\vit\resultapp\repository\StudentRepository.class
