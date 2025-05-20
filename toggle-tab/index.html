@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bootstrap Tabs</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <style>
+    .nav-tabs {
+      justify-content: center;
+      align-items: center;
+      padding-top: 1em;
+    }
+    li {
+      padding: 10px;
+    }
+    h3 {
+      padding-top: 5px;
+    }
+    button{
+        justify-content: center;
+        align-items: center;
+    }
+    .tab-content{
+        text-align: center;
+    }
+   
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#about" role="tab">About </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="menu1-tab" data-bs-toggle="tab" href="#role" role="tab">Role of Students and Teachers</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="menu2-tab" data-bs-toggle="tab" href="#publication" role="tab">Publication</a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="about" role="tabpanel" >
+        <h3>EDI Relevance</h3>
+        <p>Project Centric Learning (PCL) is a powerful tool for students to work in areas 
+            of their choice and strengths. Along with course based projects, curriculum can be enriched with 
+            semester long Engineering Design and Development courses, in which students can solve socially 
+            relevant problems using various technologies from relevant disciplines. The various socially relevant 
+            domains can be like Health care, Agriculture, Defense, Education, Smart City, Smart Energy and 
+            Swaccha Bharat Abhiyan. To gain the necessary skills to tackle such projects, students can select 
+            relevant online courses and acquire skills from numerous sources under guidance of faculty and 
+            enrich their knowledge in the project domain, thereby achieving project centric learning. Modern 
+            world sustained and advanced through the successful completion of projects. In short, if students are 
+            prepared for success in life, we need to prepare them for a project-based world. It is a style of active 
+            learning and inquiry-based learning. Project centric learning will also redefine the role of teacher as 
+            mentor in the learning process. The PCL model focuses the student on a big open-ended question, 
+            challenge, or problem to research and respond to and/or solve. It brings students not only to know, 
+            understand and remember rather it takes them to analyze, design and apply categories of Bloom‘s 
+            Taxonomy. </p>
+            <p>Students must focus to initiate the task/idea .The idea inception and consideration shall be 
+                from following areas as a real world problem: 
+                Health Care, Agriculture, Defense, Education, Smart City, Smart Energy, Swaccha Bharat 
+                Abhiyan, Environment, Women Safety.  
+                This is the sample list to start with. Faculty and students are free to include other areas which 
+                meet the society requirements at large. 
+                The model begins with the identifying of a problem, often growing out of a question or ―wondering‖. This formulated problem then stands as the starting point for learning. Students 
+                design and analyze the problem/project within an articulated disciplinary subject 
+                frame/domain. 
+                A problem can be theoretical, practical, social, technical, symbolic, cultural, and/or scientific 
+                and grows out of students‘ wondering within different disciplines and professional 
+                environments. A chosen problem has to be exemplary. The problem may involve an 
+                interdisciplinary approach in both the analysis and solving phases. 
+                By exemplarity, a problem needs to refer back to a particular practical, scientific, social and/or 
+                technical domain. The problem should stand as one specific example or manifestation of more 
+                general learning outcomes related to knowledge and/or modes of inquiry. </p>
+
+                <button type="button" class="btn btn-primary"> Some EDI project ideas!</button>
+                <div id="p1" style="display:none ; text-decoration:none;">
+                    <ul>
+                        
+                        <li> Design a deployable product for soil moisture detection </li>
+                        <li> Design a deployable product for temperature detection </li>
+                        <li> Design a deployable product for pressure detection </li>
+                        <li> Design a deployable product smoke detection </li>
+                        <li> Design a deployable product for motion detection </li>
+                        <li> Design a deployable product for collision detection </li>
+                        <li> Design a deployable product for sound detection </li>
+                    </ul>
+
+                </div>
+      </div>
+      <div class="tab-pane fade" id="role" role="tabpanel">
+        <h3>Role of Teachers and Students</h3>
+        <p><b>Teacher’s Role in PCL : </b>
+            Teacher is not the source of solutions rather he will they act as the facilitator and mentor. 
+            To utilize the principles of problems solving, critical thinking and metacognitive skills of the 
+            students. 
+            To aware the group about time management. 
+            Commitment to devote the time to solve student‘s technical problems and interested in 
+            helping students to empower them better.</p>
+        <p><b>Student’s Role in PCL :</b>
+            Students must quickly learn how to manage their own learning, Instead of passively receiving 
+            instruction. 
+            Students in PCL are actively constructing their knowledge and understanding of the situation 
+            in groups. 
+            Students in PCL are expected to work in groups. 
+            They have to develop interpersonal and group process skills, such as effective listening or 
+            coping creatively with conflicts. </p>
+            
+        
+      </div>
+      <div class="tab-pane fade" id="publication" role="tabpanel">
+        <h3>Literature Survey and Paper Publication</h3>
+        <p>It is integral part of  self- directed learning 
+            Identify the information needed to solve a given problem or issue 
+            Be able to locate the needed information 
+            Use the information to solve the given problem effectively. 
+            Skills required by students in information literacy include:    
+            How to prepare the search?   How to carry out the research 
+            Interpersonal Skills 
+            Resources Evaluation 
+            Sorting and assessing of information in general 
+            <p>Use of Research Methodology: - investigation, collaboration, comprehension, application, analysis, 
+            synthesize and evaluation </p>
+            <p>Focus on following skills while working in a team to reach to solution:   
+            Collaborative learning 
+            Metacognitive Skills 
+            Reflection Skills </p>
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    $(document).ready(function(){
+        $("button").click(function(){
+            $("#p1").toggle();
+        })
+    })
+  </script>
+</body>
+</html>
