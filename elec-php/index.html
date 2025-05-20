@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Electricity Bill</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+  <div class="container">
+    <h2>Consumer Management</h2>
+
+    <form id="consumerForm">
+      <input type="hidden" id="cid">
+      <input class="form-control my-2" id="name" placeholder="Name" required>
+      <input class="form-control my-2" id="address" placeholder="Address" required>
+      <button class="btn btn-primary" type="submit">Add / Update</button>
+    </form>
+
+    <h4 class="mt-4">Consumers</h4>
+    <ul id="consumerList" class="list-group"></ul>
+
+    <h2 class="mt-5">Bill Calculator</h2>
+    <form id="billingForm">
+      <select class="form-select my-2" id="billingConsumer"></select>
+      <input type="number" class="form-control my-2" id="units" placeholder="Units Consumed" required>
+      <button class="btn btn-success">Calculate</button>
+    </form>
+    <h4 id="billResult" class="mt-3 text-success"></h4>
+    <h3 class="mt-4">Billing History</h3>
+        <table class="table table-bordered" id="billingTable">
+        <thead>
+            <tr>
+            <th>Date</th>
+            <th>Units</th>
+            <th>Amount (Rs.)</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        </table>
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    // Existing function to load consumers
+    function loadConsumers() {
+    $.get('consumer/read.php', function(data) {
+        const consumers = JSON.parse(data);
+        $('#consumerList').empty();
+        $('#billingConsumer').empty();
+        consumers.forEach(c => {
+        $('#consumerList').append(`<li class="list-group-item">
+            ${c.name}, ${c.address}
+            <button onclick="edit(${c.id}, '${c.name}', '${c.address}')" class="btn btn-sm btn-info float-end ms-2">Edit</button>
+            <button onclick="del(${c.id})" class="btn btn-sm btn-danger float-end">Delete</button>
+        </li>`);
+        $('#billingConsumer').append(`<option value="${c.id}">${c.name}</option>`);
+        });
+        if(consumers.length > 0) {
+        loadBills(consumers[0].id); // Load bills for first consumer by default
+        }
+    });
+    }
+
+    // New function to load bills for a consumer
+    function loadBills(consumer_id) {
+    $.ajax({
+        url: 'billing/read_by_consumer.php',
+        method: 'POST',
+        data: JSON.stringify({ consumer_id }),
+        success: function(data) {
+        const bills = JSON.parse(data);
+        const tbody = $('#billingTable tbody');
+        tbody.empty();
+        if(bills.length === 0) {
+            tbody.append('<tr><td colspan="3">No bills found.</td></tr>');
+        } else {
+            bills.forEach(b => {
+            tbody.append(`<tr>
+                <td>${new Date(b.billing_date).toLocaleString()}</td>
+                <td>${b.units}</td>
+                <td>${b.amount}</td>
+            </tr>`);
+            });
+        }
+        }
+    });
+    }
+
+    // Load bills when a consumer is selected from dropdown
+    $('#billingConsumer').change(function() {
+    const consumer_id = $(this).val();
+    loadBills(consumer_id);
+    });
+
+
+    function edit(id, name, address) {
+      $('#cid').val(id);
+      $('#name').val(name);
+      $('#address').val(address);
+    }
+
+    function del(id) {
+      $.ajax({
+        url: 'consumer/delete.php',
+        method: 'POST',
+        data: JSON.stringify({ id }),
+        success: loadConsumers
+      });
+    }
+
+    $('#consumerForm').submit(function(e) {
+      e.preventDefault();
+      const data = {
+        id: $('#cid').val(),
+        name: $('#name').val(),
+        address: $('#address').val()
+      };
+      const url = data.id ? 'consumer/update.php' : 'consumer/create.php';
+      $.ajax({
+        url, method: 'POST', data: JSON.stringify(data), success: function () {
+          $('#consumerForm')[0].reset();
+          loadConsumers();
+        }
+      });
+    });
+
+    $('#billingForm').submit(function(e) {
+      e.preventDefault();
+      const data = {
+        consumer_id: $('#billingConsumer').val(),
+        units: $('#units').val()
+      };
+      $.ajax({
+        url: 'billing/calculate.php',
+        method: 'POST',
+        data: JSON.stringify(data),
+        success: function(res) {
+          const result = JSON.parse(res);
+          $('#billResult').text('Bill Amount: Rs.' + result.amount);
+        }
+      });
+    });
+
+    loadConsumers();
+  </script>
+</body>
+</html>
